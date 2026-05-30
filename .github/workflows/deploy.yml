@@ -2,7 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 'main' # 监听 main 分支的推送
+    branches:
+      - main # 监听 main 分支的推送
 
 # 给工作流赋予部署 GitHub Pages 的权限
 permissions:
