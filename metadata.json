@@ -1,0 +1,6 @@
+{
+  "name": "意式风华与彝韵匠心非遗展",
+  "description": "Fendi 'Hand in Hand' 与中国彝族刺绣及银饰非遗合作展，包含滚轮滚动渐显效果、工艺解密交互以及社会责任影响力看板。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
