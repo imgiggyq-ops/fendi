@@ -1,0 +1,56 @@
+# 自动部署 React 网页到 GitHub Pages
+name: Deploy React App to Pages
+
+on:
+  # 随时在您推送到 main 分支时自动构建
+  push:
+    branches: ["main"]
+
+  # 允许在 Actions 页面中手动运行
+  workflow_dispatch:
+
+# 权限设置，以便能够发布到 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 避免多次部署冲突
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 部署打包出来的成品文件夹
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
